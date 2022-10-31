@@ -2,6 +2,8 @@
 # CloudWalk Test - Quake Game Log
 
 Project Challenge to calculate player deaths and means of death by reading Quake 3 Arena log.
+
+
 *"Anyone can write code that the computer understands. Good programmers write code that humans understand." -Martin Fowler*
 ## Steps
 
