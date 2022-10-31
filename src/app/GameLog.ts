@@ -108,11 +108,11 @@ const processKill = ({
   const killer = splitLine[5];
 
   newGameData = scoreDeathCauses({ gameData: newGameData, splitLine });
+
   if (killer === TAG_WORLD) {
     newGameData = scoreKilledWorld({ gameData: newGameData, splitLine });
     return newGameData;
   }
-
   newGameData = scoreKilledPlayer({ gameData: newGameData, splitLine, killer });
   return newGameData;
 };
