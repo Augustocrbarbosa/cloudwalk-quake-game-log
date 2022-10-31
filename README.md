@@ -3,7 +3,7 @@
 
 Project Challenge to calculate player deaths and means of death by reading Quake 3 Arena log.
 
-## Quake-Game-Log
+## Steps
 
 Clone the project
 
