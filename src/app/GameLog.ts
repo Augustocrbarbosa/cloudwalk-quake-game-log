@@ -20,6 +20,20 @@ import { clearCharacters, logger } from '../utils';
 
 export const startGame = () => {
   try {
+    const logGames = parseGameLog();
+    if (!logGames) {
+      return logger.error('Error parsing log');
+    }
+    for (const logGame of logGames) {
+      logger.info(logGame);
+    }
+  } catch (error) {
+    logger.error(error);
+  }
+};
+
+export const parseGameLog = () => {
+  try {
     const qGamesLog = fs.readFileSync('src/logs/qgames.log', 'utf8').toString();
     const logGames: GameType[] = [];
 
@@ -57,9 +71,7 @@ export const startGame = () => {
       }
     }
 
-    for (const logGame of logGames) {
-      logger.info(logGame);
-    }
+    return logGames;
   } catch (error) {
     logger.error(error);
   }
