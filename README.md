@@ -34,7 +34,7 @@ Start Quake Game Log
   yarn dev
 ```
 
-## Exemplo response
+## Exemplo responses
 
 ```
    game_0: {
@@ -47,7 +47,8 @@ Start Quake Game Log
 ```
 
 
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/augusto-barbosa-802045134/)*by Augusto Barbosa*
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/augusto-barbosa-802045134/)
+*by Augusto Barbosa*
 
 
 ![Quake3Arena](https://img.huffingtonpost.com/asset/5d020d14240000300f8bcc37.jpeg?ops=scalefit_720_noupscale&format=webp)
