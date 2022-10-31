@@ -1,4 +1,11 @@
-import { TAG_WORLD } from '../constants';
+import fs from 'fs';
+import {
+  GAME_ACTIONS_TAG,
+  TAG_INIT_GAME,
+  TAG_KILL,
+  TAG_PLAYER,
+  TAG_WORLD,
+} from './Constants';
 import {
   GameDataType,
   GameType,
@@ -7,10 +14,58 @@ import {
   DeathCauses,
   ProcessKillType,
   GetPlayerType,
+  ActionType,
 } from '../typings';
-import { clearCharacters } from '../utils';
+import { clearCharacters, logger } from '../utils';
 
-export const startNewGame = (index: number): GameType => {
+export const startGame = () => {
+  try {
+    const qGamesLog = fs.readFileSync('src/logs/qgames.log', 'utf8').toString();
+    const logGames: GameType[] = [];
+
+    const lines = qGamesLog.split('\n');
+    const findLinesActions = lines.filter(line =>
+      GAME_ACTIONS_TAG.includes(line.trim().split(' ')[1])
+    );
+
+    for (const lineAction of findLinesActions) {
+      const action = lineAction.trim().split(' ')[1] as ActionType;
+      const splitLine = lineAction.trim().split(' ');
+
+      if (action === TAG_INIT_GAME) {
+        const game = startNewGame(logGames.length);
+        logGames.push(game);
+        continue;
+      }
+
+      const index =
+        logGames.length > 0
+          ? Number(logGames.length - 1)
+          : Number(logGames.length);
+
+      const currentGame = logGames[index];
+      let gameData = currentGame[`game_${index}`];
+
+      if (action === TAG_PLAYER) {
+        const game = getPlayer({ gameData, lineAction });
+        logGames[index] = { [`game_${index}`]: game };
+      }
+
+      if (action === TAG_KILL) {
+        const game = processKill({ gameData, splitLine });
+        logGames[index] = { [`game_${index}`]: game };
+      }
+    }
+
+    for (const logGame of logGames) {
+      logger.info(logGame);
+    }
+  } catch (error) {
+    logger.error(error);
+  }
+};
+
+const startNewGame = (index: number): GameType => {
   return {
     [`game_${index}`]: {
       total_kills: 0,
@@ -21,10 +76,7 @@ export const startNewGame = (index: number): GameType => {
   };
 };
 
-export const getPlayer = ({
-  gameData,
-  lineAction,
-}: GetPlayerType): GameDataType => {
+const getPlayer = ({ gameData, lineAction }: GetPlayerType): GameDataType => {
   const startLine = lineAction.indexOf('n\\');
   const endLine = lineAction.indexOf('\\t');
   const playerName = clearCharacters(lineAction, startLine, endLine);
@@ -35,7 +87,7 @@ export const getPlayer = ({
   return gameData;
 };
 
-export const processKill = ({
+const processKill = ({
   gameData,
   splitLine,
 }: ProcessKillType): GameDataType => {
