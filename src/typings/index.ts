@@ -1,6 +1,7 @@
-export type ActionType = 'ClientUserinfoChanged:' | 'Kill:' | 'InitGame:';
+export type ActionInput = 'ClientUserinfoChanged:' | 'Kill:' | 'InitGame:';
+export type ProcessActionInput = 'ClientUserinfoChanged:' | 'Kill:';
 
-export type GameDataType = {
+export type GameData = {
   total_kills: number;
   players: string[];
   kills_by_means: {
@@ -11,32 +12,16 @@ export type GameDataType = {
   };
 };
 
-export type GameType = {
-  [key: string]: GameDataType;
+export type GameInput = {
+  [key: string]: GameData;
 };
 
-export type KilledPlayerType = {
-  gameData: GameDataType;
-  killer: string;
+export type ScoreInput = {
   splitLine: string[];
+  gameData: GameData;
 };
 
-export type KilledWorldType = {
-  splitLine: string[];
-  gameData: GameDataType;
-};
-
-export type DeathCauses = {
-  gameData: GameDataType;
-  splitLine: string[];
-};
-
-export type ProcessKillType = {
-  gameData: GameDataType;
-  splitLine: string[];
-};
-
-export type GetPlayerType = {
-  gameData: GameDataType;
+export type ProcessActionsInput = {
+  gameData: GameData;
   lineAction: string;
 };
