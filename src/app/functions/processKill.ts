@@ -3,7 +3,6 @@ import { GameData, ScoreInput, ProcessActionsInput } from '../../typings';
 
 export default ({ gameData, lineAction }: ProcessActionsInput): GameData => {
   const splitLine = lineAction.trim().split(' ');
-  // console.log(splitLine);
   let killer = splitLine[5];
 
   let newGameData = gameData;
@@ -71,6 +70,10 @@ export const getScoreByPlayer = ({
   let killer = splitLine[5];
 
   const killedPosition = splitLine.indexOf('killed');
+
+  if (!killer || !killedPosition) {
+    return gameData;
+  }
 
   for (let position = 6; position < killedPosition; position++) {
     killer += ` ${splitLine[position]}`;
