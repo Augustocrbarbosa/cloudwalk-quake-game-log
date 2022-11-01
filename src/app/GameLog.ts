@@ -24,6 +24,7 @@ export const startGame = () => {
     if (!logGames) {
       return logger.error('Error parsing log');
     }
+
     for (const logGame of logGames) {
       logger.info(logGame);
     }
