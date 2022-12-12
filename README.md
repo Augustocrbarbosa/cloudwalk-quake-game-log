@@ -37,7 +37,7 @@ Start Quake Game Log
   yarn dev
 ```
 
-## Examples responses
+## Examples response
 
 ```
    game_0: {
