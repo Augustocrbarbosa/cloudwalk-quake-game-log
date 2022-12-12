@@ -46,7 +46,6 @@ Start Quake Game Log
       "kills": {},
       "kills_by_means": {}
     }
-
 ```
 
 
